@@ -4,15 +4,12 @@ from django.contrib.auth import login,logout,authenticate
 from django.contrib.auth.decorators import login_required
 from .forms import UserForm
 from django.shortcuts import redirect,render
-from django.db.models import Q
-
 
 def loginView(request):
     if request.method == "POST":
         userName = request.POST["username"]
         passWord = request.POST["password"]
         # checking whether the user exist or not
-
         try:
             user = User.objects.get(username=userName)
         except:
@@ -45,7 +42,6 @@ def registerView(request):
             user = form.save(commit=False)
             user.username = user.username.lower()
             user.save()
-            # login(request,user)
             messages.success(request, "User Created Successfully!")
             return redirect('login')
         else:
@@ -53,10 +49,3 @@ def registerView(request):
 
     return render(request, 'users/login_register.html', {"form": form, "page": "register"})
 
-#
-# def profiles(request):
-#     profiles, search_query = searchProfiles(request)
-#     paginator, count_range, profiles = getPagination(request, profiles)
-#     return render(request, 'users/profiles.html',
-#                   {'profiles': profiles, 'search_query': search_query, 'paginator': paginator,
-#                    'count_range': count_range})

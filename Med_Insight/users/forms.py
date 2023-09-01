@@ -2,7 +2,7 @@ from .models import Profile
 from django.forms import ModelForm,forms
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.models import User
-from .models import Profile
+from api.models import Profile
 class ProfileForm(ModelForm,forms.Form):
     class Meta:
         model = Profile
